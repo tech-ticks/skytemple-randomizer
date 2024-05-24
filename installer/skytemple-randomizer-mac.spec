@@ -87,4 +87,16 @@ app = BUNDLE(
     icon="skytemple_randomizer.icns",
     version=os.getenv("PACKAGE_VERSION", "0.0.0"),
     bundle_identifier="org.skytemple.Randomizer",
+    info_plist={
+        'CFBundleDevelopmentRegion' : 'en',
+        'CFBundleLocalizations': [
+            'en',
+            'fr',
+            'de',
+            'pt-br',
+            'es',
+            'jp'
+        ],
+        'CFBundleAllowMixedLocalizations': True
+    }
 )

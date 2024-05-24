@@ -97,9 +97,21 @@ def init_locale():
         import ctypes
 
         # TODO: Move to skytemple-files
-        from Foundation import NSLocale  # type: ignore
+        from Foundation import NSLocale, NSBundle  # type: ignore
 
-        lang = NSLocale.preferredLanguages()[0].replace("-", "_")  # type: ignore
+        # Get preferred languages for this application
+        preferred_localizations = None # type: ignore
+        bundle = NSBundle.mainBundle() # type: ignore
+        if bundle:
+            preferred_localizations = bundle.preferredLocalizations() # type: ignore
+
+        lang = None # type: ignore
+        if preferred_localizations: # type: ignore
+            lang = preferred_localizations[0].replace("-", "_")  # type: ignore
+        else:
+            # Fall back to the system language
+            lang = NSLocale.preferredLanguages()[0].replace("-", "_")  # type: ignore
+
         locale.setlocale(locale.LC_ALL, lang)
         print(f"LANG={lang}")
         os.environ["LANG"] = lang  # type: ignore
